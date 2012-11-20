@@ -223,3 +223,16 @@ bool Transform::SwapsHandedness() const {
 				  m->m[1][1] * m->m[2][0])));
 	return det < 0.f;
 }
+
+BBox Transform::operator()(const BBox &b) const {
+	const Transform &M = *this;
+	BBox ret(		 M(Point(b.pMin.x, b.pMin.y, b.pMin.z)));
+	ret = Union(ret, M(Point(b.pMax.x, b.pMin.y, b.pMin.z)));
+	ret = Union(ret, M(Point(b.pMin.x, b.pMax.y, b.pMin.z)));
+	ret = Union(ret, M(Point(b.pMin.x, b.pMin.y, b.pMax.z)));
+	ret = Union(ret, M(Point(b.pMin.x, b.pMax.y, b.pMax.z)));
+	ret = Union(ret, M(Point(b.pMax.x, b.pMax.y, b.pMin.z)));
+	ret = Union(ret, M(Point(b.pMax.x, b.pMin.y, b.pMax.z)));
+	ret = Union(ret, M(Point(b.pMax.x, b.pMax.y, b.pMax.z)));
+	return ret;
+}

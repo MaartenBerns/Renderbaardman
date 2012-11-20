@@ -8,6 +8,7 @@
 #include "Global.h"
 #include "Transform.h"
 #include <vector>
+#include "BBox.h"
 
 class Shape : public ReferenceCounted {
 public:
@@ -38,6 +39,10 @@ public:
 	virtual void Refine(std::vector<Reference<Shape> > &refined) const {
 		std::cout << "Unimplemented Shape::Refine() method called" << std::endl;
 	}
+	virtual BBox ObjectBound() const = 0;
+	virtual BBox WorldBound() const {
+		return ObjectToWorld(ObjectBound());
+	}
 };
 
 class Sphere : public Shape {
@@ -47,6 +52,7 @@ public:
 	bool Intersect(const Ray &r, float *tHit, DifferentialGeometry *dg) const;
 	bool IntersectP(const Ray &r) const;
 	float Area() const;
+	BBox ObjectBound() const;
 
 private:
 	float radius;

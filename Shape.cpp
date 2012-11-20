@@ -148,3 +148,9 @@ bool Sphere::IntersectP(const Ray &r) const {
 float Sphere::Area() const {
 	return phiMax * radius * (zmax-zmin);
 }
+
+BBox Sphere::ObjectBound() const {
+	return BBox(Point(-radius, -radius, zmin),
+				Point(radius, radius, zmax)			
+	);
+}

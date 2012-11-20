@@ -4,6 +4,7 @@
 
 #include "Geometry.h"
 #include "Global.h"
+#include "BBox.h"
 
 // TODO:
 class Vector;
@@ -46,6 +47,9 @@ public:
 	// Transformation of Rays
 	Ray operator()(const Ray &r) const;
 	void operator()(const Ray &r, Ray *rtrans) const;
+
+	// Transformation on Bounding Box
+	BBox operator()(const BBox &b) const;
 
 	// Composition of Transformations
 	Transform operator*(const Transform &t2) const;
