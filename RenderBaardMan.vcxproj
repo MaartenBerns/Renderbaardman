@@ -61,13 +61,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Bounding.h" />
+    <ClInclude Include="BBox.h" />
     <ClInclude Include="BSDF.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="Integrator.h" />
-    <ClInclude Include="Intersection.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Primitive.h" />
@@ -79,6 +78,7 @@
     <ClInclude Include="Whitted.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bbox.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="Primitive.cpp" />

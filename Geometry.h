@@ -101,6 +101,15 @@ public:
 		return *this;
 	}
 
+	Point operator+(const Point &p) const {
+		return Point(x + p.x, y + p.y, z + p.z);
+	}
+
+	Point &operator+=(const Point &p) {
+		x += p.x; y += p.y; z += p.z;
+		return *this;
+	}
+
 	Vector operator-(const Point &p) const {
 		return Vector(x - p.x, y - p.y, z - p.z);
 	}
@@ -127,8 +136,22 @@ public:
 		return *this;
 	}
 
-	// TODO: Point to Point addition and scaling: page 56
+	Point operator*(float f) const{
+		return Point(x * f, y * f, z * f);
+	}
+
+	Point &operator *=(float f){
+		x *= f;
+		y *= f;
+		z *= f;
+		return *this;
+	}
+	// TODO: Point to Point addition: page 56
 };
+
+inline Point operator*(float f, const Point &p) {
+	return p*f;
+}
 
 class Normal {
 public:

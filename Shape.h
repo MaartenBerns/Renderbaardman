@@ -7,6 +7,7 @@
 #include "Geometry.h"
 #include "Global.h"
 #include "Transform.h"
+#include <vector>
 
 class Shape : public ReferenceCounted {
 public:
@@ -33,6 +34,9 @@ public:
 	virtual float Area() const {
 		std::cout << "unimplemented Shape::Area() method called" << std::endl;
 		return 0.;
+	}
+	virtual void Refine(std::vector<Reference<Shape> > &refined) const {
+		std::cout << "Unimplemented Shape::Refine() method called" << std::endl;
 	}
 };
 
