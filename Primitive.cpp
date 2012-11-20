@@ -39,22 +39,34 @@ bool GeometricPrimitive::Intersect(const Ray &r, Intersection *isect) const {
 };
 
 bool GeometricPrimitive::IntersectP(const Ray &r) const {
-	return true; //shape->IntersectP(r);
+	return shape->IntersectP(r);
 };
 
 BBox GeometricPrimitive::WorldBound() const {
-	return NULL;
+	return shape->WorldBound();	
 };
 
 bool GeometricPrimitive::CanIntersect() const {
-	return true;
+	return shape->CanIntersect();
 };
 
 const AreaLight* GeometricPrimitive::GetAreaLight() const {
-	return NULL;
+	return areaLight;
 };
 
 BSDF* GeometricPrimitive::GetBSDF(const DifferentialGeometry &dg, 
 		const Transform &WorldToObject) const {
-	return NULL;
+	DifferentialGeometry dgs;
+	shape->GetShadingGeometry(WorldToObject.GetInverse(), dg, &dgs);
+	return material->GetBSDF(dg, dgs);
 };
+
+bool InstancePrimitive::Intersect(const Ray &r, Intersection *isect) const {
+	Ray ray = WorldToInstance(r);
+	if (!instance->Intersect(ray, isect))
+		return false;
+	r.maxt = ray.maxt;
+	isect->WorldToObject = isect->WorldToObject * WorldToInstance;
+	// TODO: transform instance's differential geometry to world space
+	return true;
+}

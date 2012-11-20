@@ -20,6 +20,7 @@ struct Intersection {
 };
 
 class Primitive : public ReferenceCounted {
+public:
 	// returns a box that encloses the primitive's geometry in world space
 	virtual BBox WorldBound() const = 0;
 	virtual bool CanIntersect() const;
@@ -46,6 +47,19 @@ private:
 	Reference<Shape> shape;
 	Reference<Material> material;
 	AreaLight *areaLight;
+};
+
+class InstancePrimitive : public Primitive {
+public:
+	InstancePrimitive(Reference<Primitive> &i, const Transform &i2w) {
+		instance = i;
+		InstanceToWorld = i2w;
+		WorldToInstance = i2w.GetInverse();
+	}
+	bool Intersect(const Ray &r, Intersection *isect) const;
+private:
+	Reference<Primitive> instance;
+	Transform InstanceToWorld, WorldToInstance;
 };
 
 #endif // PRIMITIVE_H

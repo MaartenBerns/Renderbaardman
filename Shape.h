@@ -22,7 +22,7 @@ public:
 		std::cout << "Unimplemented Shape::Intersect method called" << std::endl;
 		return false;
 	}
-	virtual bool IntersectP(const Ray &ray) {
+	virtual bool IntersectP(const Ray &ray) const {
 		std::cout << "Unimplemented Shape::IntersectP method called" << std::endl;
 		return false;
 	}
